@@ -1,0 +1,18 @@
+<div class="card-columns" >
+    <div class="card border-dark m-1" style="width: 18rem; display: inline-block;" *ngFor="let contact of list">
+
+        <div class="card-header"><h4>{{contact.name}}</h4></div>
+        <div class="card-body">
+        <div class="card-subtitle mb-2 text-muted"><h6>ID: {{contact.id}}</h6></div>
+        <div class="card-text"> 
+            <p class="m-0">Email: {{contact.email}}</p>
+            <p class="m-0">Contact: {{contact.contact}}</p>
+        </div>
+            <a class="btn btn-primary btn-sm" [routerLink]="['userdata',contact.id]">View</a>
+            <a class="btn btn-success btn-sm m-1" (click)="editContact(contact)">Edit</a>
+            <a class="btn btn-danger btn-sm" (click)='deleteContact(contact)'>Remove</a>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,14 @@
+input.ng-invalid.ng-touched{
+    border: 1px solid red;
+    background:#FFEDED;
+}
+
+input.ng-valid.ng-touched{
+    border: 1px solid lime;
+    background:#EDFFED;
+}
+
+.infoWarning{
+    font-size: xx-small;
+    color: red;
+}

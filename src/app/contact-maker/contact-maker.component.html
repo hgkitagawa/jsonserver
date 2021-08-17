@@ -1,0 +1,70 @@
+<form class="form p-3" #postForm="ngForm" (ngSubmit)="addContact(postForm)" *ngIf="!edit else editButton">  
+    <div class="form-group row m-1">
+        <label class="col-sm-1 col-form-label">Fullname</label>
+        <div class="col-sm-10">
+            <div class="row">
+                <div class="col">
+                    <span *ngIf="!fname.valid && fname.touched" class="help-block infoWarning">field cant be empty</span>
+                    <input #fname="ngModel" type="text" required ngModel class="form-control" placeholder="Fullname" id="fullname" name="fullname">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row m-1">
+      <label class="col-sm-1 col-form-label ">Email</label>
+      <div class="col-sm-10">
+        <span *ngIf="!email.valid  && email.touched && !(email.value === '')" class="help-block infoWarning">please enter a valid email</span>
+        <span *ngIf="email.value === '' && email.touched" class="help-block infoWarning">field cant be empty</span>
+        <input required ngModel email class="form-control" placeholder="Email" type="Email" id="email" name="email" #email="ngModel"/>
+      </div>
+    </div>
+    <div class="form-group row m-1">
+      <label class="col-sm-1 col-form-label ">Contact</label>
+      <div class="col-sm-10">
+        <span *ngIf="!contact.valid  && contact.touched && !(contact.value === '')" class="help-block infoWarning">Enter a valid Contact No.</span>
+        <span *ngIf="contact.value === '' && contact.touched" class="help-block infoWarning">field cant be empty</span>
+        <input #contact="ngModel" pattern="[0-9]{7,14}" required ngModel class="form-control" placeholder="Contact No." type="tel" id="contact" name="contact"/>
+      </div>
+    </div>
+    <div class="form-group row m-1">
+        <label class="col-sm-1 col-form-label"></label>
+        <div class="col-sm-10">
+          <input class="btn btn-primary float-end" type="submit" value="Add" [disabled]="!postForm.valid"/>
+        </div>
+    </div>
+</form>
+
+<ng-template #editButton>
+    <form class="form p-3" #postEditForm="ngForm" (ngSubmit)="saveEdit(postEditForm)">  
+        <div class="form-group row m-1">
+            <label class="col-sm-1 col-form-label">Fullname</label>
+            <div class="col-sm-10">
+                <span *ngIf="!efname.valid && efname.touched" class="help-block infoWarning">field cant be empty</span>
+                <input [(ngModel)]="editData.name" #efname="ngModel" type="text" required ngModel class="form-control" placeholder="Fullname" id="fullname" name="fullname">
+            </div>
+        </div>
+        <div class="form-group row m-1">
+          <label class="col-sm-1 col-form-label ">Email</label>
+          <div class="col-sm-10">
+            <span *ngIf="!eemail.valid  && eemail.touched && !(eemail.value === '')" class="help-block infoWarning">please enter a valid email</span>
+            <span *ngIf="eemail.value === '' && eemail.touched" class="help-block infoWarning">field cant be empty</span>
+            <input [(ngModel)]="editData.email" required ngModel email class="form-control" placeholder="Email" type="Email" id="email" name="email" #eemail="ngModel"/>
+          </div>
+        </div>
+        <div class="form-group row m-1">
+          <label class="col-sm-1 col-form-label ">Contact</label>
+          <div class="col-sm-10">
+            <span *ngIf="!econtact.valid  && econtact.touched && !(econtact.value === '')" class="help-block infoWarning">Enter a valid Contact No.</span>
+            <span *ngIf="econtact.value === '' && econtact.touched" class="help-block infoWarning">field cant be empty</span>
+            <input [(ngModel)]="editData.contact" #econtact="ngModel" pattern="[0-9]{7,14}" required ngModel class="form-control" placeholder="Contact No." type="tel" id="contact" name="contact"/>
+          </div>
+        </div>
+        <div class="form-group row m-1">
+            <label class="col-sm-1 col-form-label"></label>
+            <div class="col-sm-10">
+                <input class="btn btn-success float-end" type="submit" value="Save" [disabled]="!postEditForm.valid"/>
+                <input class="btn btn-danger float-end" type="submit" value="Cancel" (click)="cancelEdit()"/>
+            </div>
+        </div>
+    </form>
+</ng-template>

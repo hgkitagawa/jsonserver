@@ -1,0 +1,55 @@
+<div class="d-flex justify-content-center">
+    <div *ngIf="!editing; else editCard" class="card border-dark m-2" style="width: 40rem; display: inline-block;">
+        <div class="card-header"><h4>{{userData.name}}</h4></div>
+        <div class="card-body">
+        <div class="card-subtitle mb-2 text-muted"><h6>ID: {{userData.id}}</h6></div>
+        <div class="card-text"> 
+            <p class="m-0">Email: {{userData.email}}</p>
+            <p class="m-0">Contact: {{userData.contact}}</p>
+        </div>
+            <a class="btn btn-primary" (click)=" editMode()" >Edit</a>
+            <a class="btn btn-danger m-1" (click)="removeContact()">Delete</a>
+            <a class="btn btn-white border-dark" routerLink="/" >< Back To Contacts</a>
+        </div>
+    </div>
+    <ng-template #editCard>
+        <form #formEdit="ngForm">
+        <div class="card border-dark m-2 " style="width: 40rem; display: inline-block;">
+            <div class="card-header">
+                <div class="form-group row m-1">
+                    <label class="col-sm-3 col-form-label text-end">Name</label>
+                    <div class="col-sm-7">
+                        <div class="row">
+                            <div class="col">
+                                <span *ngIf="!name.valid  && name.touched" class="help-block infoWarning">Field can't be empty</span>
+                                <input #name="ngModel" class="form-control" required [(ngModel)]="userData.name" type="Full Name" id="name" name="name"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+            <div class="card-subtitle mb-2 text-muted"><h6>ID: {{userData.id}}</h6></div>
+            <div class="card-text"> 
+                <div class="form-group row m-1">
+                    <label class="col-sm-3 col-form-label text-end">Email</label>
+                    <div class="col-sm-5">
+                        <span *ngIf="!email.valid  && email.touched" class="help-block infoWarning">Enter a valid Email</span>
+                        <input #email="ngModel" email required class="form-control" [(ngModel)]="userData.email" type="Email" id="email" name="email"/>
+                    </div>
+                </div>
+                <div class="form-group row m-1">
+                    <label class="col-sm-3 col-form-label text-end">Contact</label>
+                    <div class="col-sm-5">
+                        <span *ngIf="!contact.valid  && contact.touched" class="help-block infoWarning">Enter a valid Contact No.</span>
+                        <input #contact="ngModel" class="form-control" [(ngModel)]="userData.contact" pattern="[0-9]{7,14}" type="tel" id="contact" name="contact"/>
+                    </div>
+                </div>
+            </div>
+                <a class="btn btn-primary m-1" (click)="updateUser()" *ngIf="(formEdit.valid)">Save</a>
+                <a class="btn btn-danger m-1" (click)="cancelEdit()">Cancel</a>
+            </div>
+        </div>
+        </form>
+    </ng-template>
+</div>
